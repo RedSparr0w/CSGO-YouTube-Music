@@ -1,0 +1,17 @@
+ytmusic-nav-bar,
+#guide,
+.super-pivot-header,
+.watch-title-tray {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  margin: 1px;
+}
+
+#right-content,
+#left-content,
+ytmusic-pivot-bar-renderer,
+ytmusic-search-box,
+.guide-button,
+.overlay-partials-menu-item {
+  -webkit-app-region: no-drag;
+}
