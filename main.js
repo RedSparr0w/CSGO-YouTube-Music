@@ -23,6 +23,9 @@ function createWindow() {
     backgroundColor: '#222f3e',
     frame: false,
     titleBarStyle: 'customButtonsOnHover',
+    webPreferences: {
+      nodeIntegration: true,
+    },
   });
 
   // Keep window always on top even with full screen apps
