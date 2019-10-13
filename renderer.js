@@ -29,7 +29,6 @@ http.createServer((req, res) => {
 
   req.on('end', () => {
     statusUpdate(JSON.parse(body));
-
     res.end();
   });
 }).listen(1337);
@@ -66,7 +65,7 @@ function statusUpdate (data) {
 
 window.addEventListener('keypress', ({ key }) => {
   if (key == '+' || key == '=')
-    musicplayer.volume = musicplayer.volume >= 0.95 ? 1 : +musicplayer.volume.toFixed(2) + 0.05;
+    musicplayer.volume = Math.min(1, +musicplayer.volume.toFixed(2) + 0.05);
   else if (key == '-')
-    musicplayer.volume = musicplayer.volume <= 0.05 ? 0 : +musicplayer.volume.toFixed(2) - 0.05;
+    musicplayer.volume = Math.max(0, +musicplayer.volume.toFixed(2) - 0.05);
 });
