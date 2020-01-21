@@ -26,12 +26,12 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
     },
+    fullscreenable: false,
   });
 
   // Keep window always on top even with full screen apps
   //mainWindow.setAlwaysOnTop(true, 'floating');
   mainWindow.setVisibleOnAllWorkspaces(true);
-  mainWindow.setFullScreenable(false);
 
   // Load YouTube TV
   mainWindow.loadURL('https://music.youtube.com/');
