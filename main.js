@@ -34,7 +34,8 @@ function createWindow() {
   mainWindow.setVisibleOnAllWorkspaces(true);
 
   // Load YouTube TV
-  mainWindow.loadURL('https://music.youtube.com/');
+  mainWindow.loadURL('https://accounts.google.com/signin/v2/identifier?continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Fapp%3Ddesktop%26action_handle_signin%3Dtrue%26next%3Dhttps%253A%252F%252Fmusic.youtube.com%252F%26hl%3Den%26feature',
+     { userAgent: 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0' });
 
   // Inject script and css once loaded
   mainWindow.webContents.on('did-finish-load', function() {
