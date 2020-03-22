@@ -45,16 +45,20 @@ function statusUpdate (data) {
   */
 
   if (
-    (data.player && data.player.activity === 'menu') || // menu
-    (data.player.state.health === 0 || data.player.steamid !== data.provider.steamid) // dead
-  ) {
+    data.player &&
+    (
+      data.player.activity === 'menu' || // menu
+      data.player.state.health === 0 || // dead
+      data.player.steamid !== data.provider.steamid // dead/spectating
+    )
+  ) { // dead/menu
     if (!played && musicplayer.paused){
       played = true;
       setTimeout(()=>{
         musicplayer.play();
       }, 2500);
     }
-  } else {
+  } else { // alive
     if (played && !musicplayer.paused){
       played = false;
       setTimeout(()=>{
