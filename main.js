@@ -7,11 +7,10 @@ const fs = require('fs');
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-function createWindow() {
-
+const createWindow = () => {
   const screenSize = electron.screen.getPrimaryDisplay().workAreaSize,
     width = 390,
-    height = 1080,
+    height = screenSize.height,
     x = screenSize.width - width,
     y = 0;
 
@@ -39,7 +38,7 @@ function createWindow() {
     { userAgent: 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0' });
 
   // Inject script and css once loaded
-  mainWindow.webContents.on('did-finish-load', function() {
+  mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.insertCSS(
       fs.readFileSync(`${__dirname}/renderer.css`).toString()
     );
@@ -54,31 +53,29 @@ function createWindow() {
   });
 
   // Destroy object, close app
-  mainWindow.on('closed', function() {
+  mainWindow.on('closed', () => {
     mainWindow = null;
   });
 
-  globalShortcut.register('Alt+M', () => {
-    console.log('Alt+M is pressed');
-    mainWindow.webContents.send('song', 'next');
-  });
+  const nextTrack = () => mainWindow.webContents.send('song', 'next');
+  globalShortcut.register('MediaNextTrack', nextTrack);
+  globalShortcut.register('Alt+M', nextTrack);
 
-  globalShortcut.register('Alt+N', () => {
-    console.log('Alt+N is pressed');
-    mainWindow.webContents.send('song', 'prev');
-  });
-}
+  const prevTrack = () => mainWindow.webContents.send('song', 'prev');
+  globalShortcut.register('MediaPreviousTrack', prevTrack);
+  globalShortcut.register('Alt+N', prevTrack);
+};
 
 app.on('ready', createWindow);
 
 // Quit when all windows are closed.
-app.on('window-all-closed', function() {
+app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
-app.on('activate', function() {
+app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
