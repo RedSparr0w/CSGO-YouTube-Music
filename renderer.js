@@ -1,11 +1,12 @@
 'use strict';
 
+const { ipcRenderer } = require('electron');
 const http = require('http');
-var musicplayer;
+let musicplayer;
 // If you need to pause the music or want to play it, the program wont overite your choice until you next die/spawn.
-var played = false;
+let played = false;
 
-let init = setInterval(()=>{
+const init = setInterval(()=>{
   if (document.getElementsByTagName('video').length >= 1){
     clearInterval(init);
     musicplayer = document.getElementsByTagName('video')[0];
@@ -68,4 +69,16 @@ window.addEventListener('keypress', ({ key }) => {
     musicplayer.volume = Math.min(1, +musicplayer.volume.toFixed(2) + 0.05);
   else if (key == '-')
     musicplayer.volume = Math.max(0, +musicplayer.volume.toFixed(2) - 0.05);
+});
+
+ipcRenderer.on('song', function (event, arg){
+  console.log(arg);
+  switch (arg) {
+    case 'next':
+      document.querySelector('[aria-label="Next song"]').click();
+      break;
+    case 'prev':
+      document.querySelector('[aria-label="Previous song"]').click();
+      break;
+  }
 });
