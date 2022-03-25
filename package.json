@@ -16,7 +16,7 @@
   ],
   "author": "RedSparr0w",
   "devDependencies": {
-    "electron": "^7.2.4",
+    "electron": "^13.6.6",
     "electron-packager": "^14.2.0",
     "eslint": "^6.8.0"
   }
